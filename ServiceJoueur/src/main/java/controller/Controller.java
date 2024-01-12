@@ -1,8 +1,6 @@
 package controller;
 
 import authent.modele.Joueur;
-import authent.modele.JoueurInexistantException;
-import authent.modele.PseudoDejaPrisException;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
