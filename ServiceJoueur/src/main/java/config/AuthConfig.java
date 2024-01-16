@@ -14,8 +14,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,7 +51,7 @@ public class AuthConfig {
             )
             .csrf((csrf) -> csrf.ignoringRequestMatchers("/authentication/**"))
             .httpBasic(Customizer.withDefaults())
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt).sessionManagement(session -> session.sessionCreationPolicy(
+                .sessionManagement(session -> session.sessionCreationPolicy(
                     org.springframework.security.config.http.SessionCreationPolicy.STATELESS
                 )).exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
@@ -74,13 +74,7 @@ public class AuthConfig {
 
     @Bean
     public PasswordEncoder delegatePasswordEncoder() {
-        String idForPassword = "bcrypt";
-        PasswordEncoder defaultEncoder = new BCryptPasswordEncoder();
-        Map<String, PasswordEncoder> encoder = Map.of(idForPassword, defaultEncoder,
-                "noop", NoOpPasswordEncoder.getInstance(),
-                "scrypt", SCryptPasswordEncoder.defaultsForSpringSecurity_v4_1(),
-                "sha256", new StandardPasswordEncoder());
-        return new DelegatingPasswordEncoder(idForPassword, encoder);
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
