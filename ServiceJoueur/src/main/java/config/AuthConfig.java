@@ -81,7 +81,7 @@ public class AuthConfig {
                     .issuer("self")
                     .issuedAt(now)
                     .expiresAt(now.plusSeconds(expiry))
-                    .subject(joueur.getNomJoueur())
+                    .subject(joueur.getLogin())
                     .claim("roles", "ADMIN")
                     .build();
 

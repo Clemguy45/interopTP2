@@ -1,9 +1,8 @@
 package service;
 
-import authent.modele.OperationNonAutorisee;
 import authent.modele.Joueur;
-import pileouface.modele.JoueurInexistantException;
-import pileouface.modele.PseudoDejaPrisException;
+import authent.modele.JoueurInexistantException;
+import authent.modele.PseudoDejaPrisException;
 
 public interface FacadeJoueur {
     /**
@@ -14,7 +13,7 @@ public interface FacadeJoueur {
      * @return
      * @throws PseudoDejaPrisException
      */
-    Joueur inscription(String email, String mdp) throws PseudoDejaPrisException;
+    Joueur inscription(String email,String pseudo, String mdp) throws PseudoDejaPrisException;
 
     Joueur getJoueurByPseudo(String idJoueur) throws JoueurInexistantException;
 
@@ -26,4 +25,6 @@ public interface FacadeJoueur {
      * @throws JoueurInexistantException
      */
     void desincription(String pseudo) throws JoueurInexistantException;
+
+
 }

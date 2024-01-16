@@ -1,18 +1,21 @@
-package service;
 
+package service;
 import authent.modele.Joueur;
-import authent.modele.OperationNonAutorisee;
-import pileouface.modele.JoueurInexistantException;
-import pileouface.modele.PseudoDejaPrisException;
+import authent.modele.JoueurInexistantException;
+import authent.modele.PseudoDejaPrisException;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class FacadeJoueurImpl implements FacadeJoueur{
+@Component("facadeJoueurs")
+public class FacadeJoueurImpl implements FacadeJoueur {
+
+
     /**
      * Dictionnaire des joueurs inscrits
      */
-    private Map<String,Joueur> joueurs;
+    private Map<String, Joueur> joueurs;
 
 
     public FacadeJoueurImpl() {
@@ -21,16 +24,16 @@ public class FacadeJoueurImpl implements FacadeJoueur{
 
 
     @Override
-    public Joueur inscription(String email, String mdp) throws PseudoDejaPrisException {
-        if (joueurs.containsKey(email))
+    public Joueur inscription(String email, String pseudo, String mdp) throws PseudoDejaPrisException {
+        if (joueurs.containsKey(pseudo))
             throw new PseudoDejaPrisException();
-        Joueur v = new Joueur(email,  mdp);
-        this.joueurs.put(email, v);
+        Joueur v = new Joueur(email, pseudo, mdp);
+        this.joueurs.put(pseudo, v);
         return v;
     }
 
     @Override
-    public Joueur getJoueurByPseudo(String idJoueur)  throws JoueurInexistantException {
+    public Joueur getJoueurByPseudo(String idJoueur) throws JoueurInexistantException {
         if (!joueurs.containsKey(idJoueur)) {
             throw new JoueurInexistantException();
         }
@@ -43,5 +46,4 @@ public class FacadeJoueurImpl implements FacadeJoueur{
             throw new JoueurInexistantException();
         joueurs.remove(pseudo);
     }
-
 }
