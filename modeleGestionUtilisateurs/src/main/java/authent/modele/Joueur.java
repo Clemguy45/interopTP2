@@ -23,8 +23,9 @@ public class Joueur {
         return nomJoueur;
     }
 
-
-
+    public String getMdpJoueur() {
+        return mdpJoueur;
+    }
 
     public boolean checkPassword(String password) {
         return this.mdpJoueur.equals(password);

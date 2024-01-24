@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    consul:
+      discovery:
+        register: true
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8500}
+      ribbon:
+        enabled: false
+
+    gateway:
+      routes:
+        - id: auth
+          uri: lb://auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<path>.*), /auth/$\{path}
+            - PreserveHostHeader=true
+        - id: parties
+          uri: lb://parties
+          predicates:
+            - Path=/parties/**
+          filters:
+            - RewritePath=/parties/(?<path>.*), /$\{path}
+            - PreserveHostHeader=true
+
+server:
+  port: 8082
+

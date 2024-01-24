@@ -1,0 +1,24 @@
+GET http://localhost:8082/parties/joueurs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiQm9iIiwiZXhwIjoxNzA1NjY2MjA5LCJpYXQiOjE3MDU2NjI2MDksInNjb3BlIjoiIn0.XI7afyVtjm6_bCDp_jORd9p-lceogmj30rNqww70jlL-O6FKhJhGb0jaChgZuUk2JnqD7rMyGlFSNo-LRhKqLmjLVplIzjaWyg_AK2dDatPSiI8Pb1usU1aRFdFBp2izz1WsBB86zT81ttcq2l-e6Xl8jLoD7U9TxXkF0NSNetBmEQjEy_WgrG6QssoHpjeCkgsPbi-CSZD7wn6SCJkjBJFEnjE2Kwjxy0uh3fuHkPYwfD_nwYXZl0fhpwAsLoBQYF1W3gK9qUl7ZQ6pw_MM_4OAtPc1pUY1sy47IfcOPPk0DuB72DQjeGIM4NxpZpkuQoV15Qr1OLTn61qs8DjDsQ
+
+###
+
+POST http://localhost:8082/auth/login
+Content-Type: application/json
+
+{
+  "pseudo": "Bob",
+  "mdp": "Bobibi"
+}
+
+
+###
+
+POST http://localhost:8082/auth/register
+Content-Type: application/json
+
+{
+  "nouveauJoueur": "Bob",
+  "mdp": "Bobibi"
+}
